@@ -12,10 +12,11 @@ class ChatServer {
             socket.on('login', (data) => {
                 console.log('login: ' + data);
                 socket.join(this.room);
+                socket.emit('hello', socket.id);
                 this.socket.to(this.room).emit('info', data.name + ' is connected');
 
                 // ユーザインスタンスの生成、ユーザ配列へ格納
-                this.users.push(new User(socket, data));
+                this.users.push(new User(socket, data, socket.id));
             });
 
 
@@ -29,9 +30,10 @@ class ChatServer {
 
 
 class User {
-    constructor(socket, data) {
+    constructor(socket, data, id) {
         this.socket = socket;
         this.name = data.name;
+        this.id = id;
     }
 }
 
