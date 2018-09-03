@@ -4,13 +4,24 @@ class ChatServer {
     constructor(http) {
         this.users = [];
         this.socket = require('socket.io')(http);
+        this.room = 'prime';  // とりあえずシングルルーム
     }
 
     start() {
         this.socket.on('connection', (socket) => {
             socket.on('login', (data) => {
                 console.log('login: ' + data);
-                this.users.push(new User(socket));
+                socket.join(this.room);
+                this.socket.to(this.room).emit('info', data.name + ' is connected');
+
+                // ユーザインスタンスの生成、ユーザ配列へ格納
+                this.users.push(new User(socket, data));
+            });
+
+
+            // チャットの配送
+            socket.on('chat', (data) => {
+                this.socket.to(this.room).emit('chat', data);
             });
         });
     }
@@ -18,16 +29,9 @@ class ChatServer {
 
 
 class User {
-    constructor(socket) {
+    constructor(socket, data) {
         this.socket = socket;
-        this.onMessage();
-    }
-
-    onMessage() {
-        this.socket.on('chat', (data) => {
-            console.log('chat: ', (data));
-            socket.emit('chat', data);
-        });
+        this.name = data.name;
     }
 }
 
