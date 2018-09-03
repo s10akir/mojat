@@ -22,7 +22,7 @@ class ChatServer {
 
             // チャットの配送
             socket.on('chat', (data) => {
-                this.socket.to(this.room).emit('chat', data);
+                this.socket.to(this.room).emit('chat', {text: data, user: socket.id});
             });
         });
     }
