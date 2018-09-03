@@ -3,10 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Mojat</title>
+
+    <link rel="stylesheet" href="honoka/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <h1>Mojat!</h1>
+    <div class="container">
+        <div class="row">
+                <div id='join-box'>
+                    <div class="form-group">
+                        <div class="input-group mb-2">
+                            <input id="name-holder" type="text" placeholder="名前を入力してください">
+                            <div class="input-group-append">
+                                <button id="join-button" class="btn btn-success">Join!</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    now online...
+                </div>
+                <div id="online-users">
 
+                </div>
+                <div id="chat-box" class="form-group">
+                    <div id="input-box" class="input-group mb-2">
+                        <input id="chat-text" type="text" placeholder="what's happen?">
+                        <div class="input-group-append">
+                            <button id="say-button" class="btn btn-success">Say!</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="honoka/js/bootstrap.min.js"></script>
     <script src="socket.io.slim.js"></script>
     <script src="index.js"></script>
 </body>
