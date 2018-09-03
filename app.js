@@ -2,14 +2,31 @@
 
 class ChatServer {
     constructor(http) {
+        this.users = [];
         this.socket = require('socket.io')(http);
     }
 
     start() {
         this.socket.on('connection', (socket) => {
-            socket.on('Hello', (data) => {
-                console.log('Hello: ' + data);
+            socket.on('login', (data) => {
+                console.log('login: ' + data);
+                this.users.push(new User(socket));
             });
+        });
+    }
+}
+
+
+class User {
+    constructor(socket) {
+        this.socket = socket;
+        this.onMessage();
+    }
+
+    onMessage() {
+        this.socket.on('chat', (data) => {
+            console.log('chat: ', (data));
+            socket.emit('chat', data);
         });
     }
 }
