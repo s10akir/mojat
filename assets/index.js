@@ -36,6 +36,12 @@ $('#say-button').on('click', () => {
     }
 });
 
+$(window).on('beforeunload', () => {
+    if (isConnected) {
+        socket.emit('left');
+    }
+});
+
 // 自ID記憶
 socket.on('hello', (data) => {
     id = data.id;
