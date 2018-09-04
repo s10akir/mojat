@@ -26,6 +26,7 @@ $('#join-button').on('click', () => {
         $('#join-button-text').text('Join!');
         $('#chat-text').prop('disabled', true);
         $('#say-button').prop('disabled', true);
+        $('#online-users').empty();
         isConnected = !isConnected;
     }
 });
@@ -91,6 +92,7 @@ function chatScroll() {
 
 function renderOnlineUsers(users) {
     const onlineUsers = $('#online-users');
+    onlineUsers.empty();
     users.forEach(u => {
         let dom = '<div><b>' + u.name + '</b> (' + u.id + ')</div>';
         onlineUsers.append(dom);
