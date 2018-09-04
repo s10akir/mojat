@@ -51,6 +51,7 @@ socket.on('info', (data) => {
 
     let info = '<div class="chat"><div class="chat-text chat-info">' + msg + '</div></div>';
     $('#chat-box').append(info);
+    chatScroll();
 });
 
 socket.on('chat', (data) => {
@@ -65,5 +66,9 @@ socket.on('chat', (data) => {
 
     const msg = '<div class="chat"><div class="' + cssClass + '"><div class="chat-name">' + data.user.name + '</div>' + data.text + '</div></div>';
     chatBox.append(msg);
-    chatBox.animate({scrollTop: chatBox[0].scrollHeight}, 'fast');
+    chatScroll();
 });
+
+function chatScroll() {
+    $('#chat-box').animate({scrollTop: chatBox[0]._scrollHeight}, 'fast');
+}
