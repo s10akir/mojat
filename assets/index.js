@@ -3,6 +3,8 @@
 const socket = io.connect();
 let id;
 
+// jQueryは地獄 #jQueryは地獄
+
 // joinボタン押下
 $('#join-button').on('click', () => {
     let name = $('#name-holder').val();
