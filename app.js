@@ -27,10 +27,13 @@ class ChatServer {
                     }
                 });
 
-                console.log('left: ' + user.name);
+                // なんらかの原因でjoinしたままのクライアントがゾンビしてることがあるため判定 (主にサーバ再起動時)
+                if (user) {
+                    console.log('left: ' + user.name);
 
-                this.socket.to(this.room).emit('info', {type: 'left', user: {id: user.id, name: user.name}});
-                socket.leave(this.room);
+                    this.socket.to(this.room).emit('info', {type: 'left', user: {id: user.id, name: user.name}});
+                    socket.leave(this.room);
+                }
             });
 
 
