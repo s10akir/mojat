@@ -29,8 +29,12 @@ socket.on('hello', (data) => {
 });
 
 socket.on('info', (data) => {
-    let msg = '<div class="chat"><div class="chat-text chat-info">' + data + '</div></div>';
-    $('#chat-box').append(msg);
+    let msg;
+    if (data.type = 'join') {
+        msg = `${data.user.name} is joined!`;
+    }
+    let info = '<div class="chat"><div class="chat-text chat-info">' + msg + '</div></div>';
+    $('#chat-box').append(info);
 });
 
 socket.on('chat', (data) => {

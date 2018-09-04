@@ -13,7 +13,7 @@ class ChatServer {
                 console.log('login: ' + data);
                 socket.join(this.room);
                 socket.emit('hello', socket.id);
-                this.socket.to(this.room).emit('info', data.name + ' is connected');
+                this.socket.to(this.room).emit('info', {type: 'join', user: {id: socket.id, name: data.name}});
 
                 // ユーザインスタンスの生成、ユーザ配列へ格納
                 this.users.push(new User(socket, data, socket.id));
