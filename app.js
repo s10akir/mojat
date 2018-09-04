@@ -19,6 +19,20 @@ class ChatServer {
                 this.users.push(new User(socket, data, socket.id));
             });
 
+            socket.on('logout', (data) => {
+                let user;
+                this.users.forEach(u=> {
+                    if (u.id === data.id) {
+                        user = u;
+                    }
+                });
+
+                console.log('logout: ' + user.name);
+
+                this.socket.to(this.room).emit('info', {type: 'left', user: {id: user.id, name: user.name}});
+                socket.leave(this.room);
+            });
+
 
             // チャットの配送
             socket.on('chat', (data) => {

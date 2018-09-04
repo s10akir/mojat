@@ -6,10 +6,21 @@ let id;
 // jQueryは地獄 #jQueryは地獄
 
 // joinボタン押下
+let joinFlag = true;
 $('#join-button').on('click', () => {
-    let name = $('#name-holder').val();
-    if (name !== '') {
-        socket.emit('login', {name: name})
+    if (joinFlag) {
+        let name = $('#name-holder').val();
+        if (name !== '') {
+            socket.emit('login', {name: name})
+        }
+
+        $('#join-button-text').text('Left!');
+        joinFlag = !joinFlag;
+    } else {
+        socket.emit('logout', {id: id});
+
+        $('#join-button-text').text('Join!');
+        joinFlag = !joinFlag;
     }
 });
 
@@ -30,9 +41,12 @@ socket.on('hello', (data) => {
 
 socket.on('info', (data) => {
     let msg;
-    if (data.type = 'join') {
+    if (data.type === 'join') {
         msg = `${data.user.name} is joined!`;
+    } else if (data.type === 'left') {
+        msg = `${data.user.name} is leaved!`;
     }
+
     let info = '<div class="chat"><div class="chat-text chat-info">' + msg + '</div></div>';
     $('#chat-box').append(info);
 });
