@@ -16,12 +16,16 @@ $('#join-button').on('click', () => {
 
         $('#name-holder').prop('disabled', true);
         $('#join-button-text').text('Left!');
+        $('#chat-text').prop('disabled', false);
+        $('#say-button').prop('disabled', false);
         isConnected = !isConnected;
     } else {
         socket.emit('left', {id: id});
 
         $('#name-holder').prop('disabled', false);
         $('#join-button-text').text('Join!');
+        $('#chat-text').prop('disabled', true);
+        $('#say-button').prop('disabled', true);
         isConnected = !isConnected;
     }
 });
