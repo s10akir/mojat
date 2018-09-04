@@ -11,13 +11,13 @@ $('#join-button').on('click', () => {
     if (joinFlag) {
         let name = $('#name-holder').val();
         if (name !== '') {
-            socket.emit('login', {name: name})
+            socket.emit('join', {name: name})
         }
 
         $('#join-button-text').text('Left!');
         joinFlag = !joinFlag;
     } else {
-        socket.emit('logout', {id: id});
+        socket.emit('left', {id: id});
 
         $('#join-button-text').text('Join!');
         joinFlag = !joinFlag;

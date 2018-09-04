@@ -9,8 +9,8 @@ class ChatServer {
 
     start() {
         this.socket.on('connection', (socket) => {
-            socket.on('login', (data) => {
-                console.log('login: ' + data);
+            socket.on('join', (data) => {
+                console.log('join: ' + data);
                 socket.join(this.room);
                 socket.emit('hello', socket.id);
                 this.socket.to(this.room).emit('info', {type: 'join', user: {id: socket.id, name: data.name}});
@@ -19,7 +19,7 @@ class ChatServer {
                 this.users.push(new User(socket, data, socket.id));
             });
 
-            socket.on('logout', (data) => {
+            socket.on('left', (data) => {
                 let user;
                 this.users.forEach(u=> {
                     if (u.id === data.id) {
@@ -27,7 +27,7 @@ class ChatServer {
                     }
                 });
 
-                console.log('logout: ' + user.name);
+                console.log('left: ' + user.name);
 
                 this.socket.to(this.room).emit('info', {type: 'left', user: {id: user.id, name: user.name}});
                 socket.leave(this.room);
