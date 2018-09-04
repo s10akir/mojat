@@ -17,8 +17,12 @@ class ChatServer {
                 socket.join(this.room);
                 console.log('join: ' + user.name);
 
-                // ユーザの固有id通知
-                socket.emit('hello', socket.id);
+                // ユーザの固有idとオンラインユーザ通知
+                let online = [];
+                this.users.forEach(u => {
+                    online.push({id: u.id, name: u.name});
+                });
+                socket.emit('hello', {id: socket.id, online: online});
 
                 this.socket.to(this.room).emit('info', {type: 'join', user: {id: user.id, name: user.name}});
             });

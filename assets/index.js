@@ -38,8 +38,9 @@ $('#say-button').on('click', () => {
 
 // 自ID記憶
 socket.on('hello', (data) => {
-    id = data;
+    id = data.id;
     console.log("my socket id = " + id);
+    renderOnlineUsers(data.online);
 });
 
 // サーバからのメッセージを受信したときの処理
@@ -76,4 +77,12 @@ socket.on('chat', (data) => {
 function chatScroll() {
     const chatBox = $('#chat-box');
     chatBox.animate({scrollTop: chatBox[0]._scrollHeight}, 'fast');
+}
+
+function renderOnlineUsers(users) {
+    const onlineUsers = $('#online-users');
+    users.forEach(u => {
+        let dom = '<div><b>' + u.name + '</b> (' + u.id + ')</div>';
+        onlineUsers.append(dom);
+    });
 }
