@@ -11,7 +11,7 @@ class ChatServer {
         this.socket.on('connection', (socket) => {
             socket.on('join', (data) => {
                 // ユーザインスタンスの生成、ユーザ配列へ格納
-                const user = new User(socket, data, socket.id);
+                const user = new User(data, socket.id);
                 this.users.push(user);
 
                 socket.join(this.room);
@@ -59,8 +59,7 @@ class ChatServer {
 
 
 class User {
-    constructor(socket, data, id) {
-        this.socket = socket;
+    constructor(data, id) {
         this.name = data.name;
         this.id = id;
     }
