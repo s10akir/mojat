@@ -63,13 +63,13 @@ socket.on('info', (data) => {
         msg = `${data.user.name} is joined!`;
         if (data.user.id !== id) {
             users.push(data.user);
-            renderOnlineUsers()
+            renderOnlineUsers();
         }
     } else if (data.type === 'left') {
         msg = `${data.user.name} is leaved!`;
         if (data.user.id !== id) {
             users.splice(users.indexOf(data.user));
-            renderOnlineUsers()
+            renderOnlineUsers();
         }
     }
 
