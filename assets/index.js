@@ -2,6 +2,7 @@
 
 const socket = io.connect();
 let id;
+let users;
 
 // jQueryは地獄 #jQueryは地獄
 
@@ -51,7 +52,8 @@ $(window).on('beforeunload', () => {
 socket.on('hello', (data) => {
     id = data.id;
     console.log("my socket id = " + id);
-    renderOnlineUsers(data.online);
+    users = data.online;
+    renderOnlineUsers();
 });
 
 // サーバからのメッセージを受信したときの処理
@@ -59,8 +61,16 @@ socket.on('info', (data) => {
     let msg;
     if (data.type === 'join') {
         msg = `${data.user.name} is joined!`;
+        if (data.user.id !== id) {
+            users.push(data.user);
+            renderOnlineUsers()
+        }
     } else if (data.type === 'left') {
         msg = `${data.user.name} is leaved!`;
+        if (data.user.id !== id) {
+            users.splice(users.indexOf(data.user));
+            renderOnlineUsers()
+        }
     }
 
     let info = '<div class="chat"><div class="chat-text chat-info">' + msg + '</div></div>';
@@ -90,7 +100,7 @@ function chatScroll() {
     chatBox.animate({scrollTop: chatBox[0]._scrollHeight}, 'fast');
 }
 
-function renderOnlineUsers(users) {
+function renderOnlineUsers() {
     const onlineUsers = $('#online-users');
     onlineUsers.empty();
     users.forEach(u => {

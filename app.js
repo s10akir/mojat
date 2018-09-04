@@ -24,7 +24,6 @@ class ChatServer {
                 });
                 socket.emit('hello', {id: socket.id, online: online});
 
-                this.socket.to(this.room).emit('info', {type: 'join', user: {id: user.id, name: user.name}});
             });
 
             socket.on('left', () => {
@@ -39,7 +38,6 @@ class ChatServer {
                 if (user) {
                     console.log('left: ' + user.name);
 
-                    this.socket.to(this.room).emit('info', {type: 'left', user: {id: user.id, name: user.name}});
                     socket.leave(this.room);
                     this.users.splice(this.users.indexOf(user), 1);
                 }
