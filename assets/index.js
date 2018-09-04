@@ -36,11 +36,13 @@ $('#say-button').on('click', () => {
     }
 });
 
+// 自ID記憶
 socket.on('hello', (data) => {
     id = data;
     console.log("my socket id = " + id);
 });
 
+// サーバからのメッセージを受信したときの処理
 socket.on('info', (data) => {
     let msg;
     if (data.type === 'join') {
@@ -54,6 +56,7 @@ socket.on('info', (data) => {
     chatScroll();
 });
 
+// チャットを受信したときの処理
 socket.on('chat', (data) => {
     console.log(data);
     let cssClass = "chat-text";
@@ -69,6 +72,7 @@ socket.on('chat', (data) => {
     chatScroll();
 });
 
+// チャット領域を最下部までスクロールする
 function chatScroll() {
     $('#chat-box').animate({scrollTop: chatBox[0]._scrollHeight}, 'fast');
 }
