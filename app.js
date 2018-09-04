@@ -19,10 +19,10 @@ class ChatServer {
                 this.users.push(new User(socket, data, socket.id));
             });
 
-            socket.on('left', (data) => {
+            socket.on('left', () => {
                 let user;
                 this.users.forEach(u=> {
-                    if (u.id === data.id) {
+                    if (u.id === socket.id) {
                         user = u;
                     }
                 });
