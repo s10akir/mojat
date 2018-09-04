@@ -14,11 +14,13 @@ $('#join-button').on('click', () => {
             socket.emit('join', {name: name})
         }
 
+        $('#name-holder').prop('disabled', true);
         $('#join-button-text').text('Left!');
         isConnected = !isConnected;
     } else {
         socket.emit('left', {id: id});
 
+        $('#name-holder').prop('disabled', false);
         $('#join-button-text').text('Join!');
         isConnected = !isConnected;
     }
