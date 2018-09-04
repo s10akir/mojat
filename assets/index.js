@@ -6,21 +6,21 @@ let id;
 // jQueryは地獄 #jQueryは地獄
 
 // joinボタン押下
-let joinFlag = true;
+let isConnected = false;
 $('#join-button').on('click', () => {
-    if (joinFlag) {
+    if (isConnected) {
         let name = $('#name-holder').val();
         if (name !== '') {
             socket.emit('join', {name: name})
         }
 
         $('#join-button-text').text('Left!');
-        joinFlag = !joinFlag;
+        isConnected = !isConnected;
     } else {
         socket.emit('left', {id: id});
 
         $('#join-button-text').text('Join!');
-        joinFlag = !joinFlag;
+        isConnected = !isConnected;
     }
 });
 
