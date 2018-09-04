@@ -37,6 +37,7 @@ class ChatServer {
 
                     this.socket.to(this.room).emit('info', {type: 'left', user: {id: user.id, name: user.name}});
                     socket.leave(this.room);
+                    this.users.splice(this.users.indexOf(user), 1);
                 }
             });
 
