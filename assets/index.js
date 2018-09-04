@@ -8,7 +8,7 @@ let id;
 // joinボタン押下
 let isConnected = false;
 $('#join-button').on('click', () => {
-    if (isConnected) {
+    if (!isConnected) {
         let name = $('#name-holder').val();
         if (name !== '') {
             socket.emit('join', {name: name})
