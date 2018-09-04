@@ -55,6 +55,11 @@ nav {
     padding: 10px;
 }
 
+.chat-name {
+    font-size: 10pt;
+    color: #eee;
+}
+
 .chat-text {
     color: white;
     background: #7fc2ef;

@@ -59,11 +59,11 @@ socket.on('chat', (data) => {
     const chatBox = $('#chat-box');
 
     // 自分の送信したチャットか否か
-    if (data.user === id) {
+    if (data.user.id === id) {
         cssClass += " chat-me"
     }
 
-    const msg = '<div class="chat"><div class="' + cssClass + '">' + data.text + '</div></div>';
+    const msg = '<div class="chat"><div class="' + cssClass + '"><div class="chat-name">' + data.user.name + '</div>' + data.text + '</div></div>';
     chatBox.append(msg);
     chatBox.animate({scrollTop: chatBox[0].scrollHeight}, 'fast');
 });

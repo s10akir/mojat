@@ -39,7 +39,15 @@ class ChatServer {
 
             // チャットの配送
             socket.on('chat', (data) => {
-                this.socket.to(this.room).emit('chat', {text: data, user: socket.id});
+                let user;
+                this.users.forEach(u => {
+                    if (u.id === socket.id)
+                    user = u;
+                });
+
+                console.log(user);
+
+                this.socket.to(this.room).emit('chat', {text: data, user: {id: user.id, name: user.name}});
             });
         });
     }
