@@ -74,5 +74,6 @@ socket.on('chat', (data) => {
 
 // チャット領域を最下部までスクロールする
 function chatScroll() {
-    $('#chat-box').animate({scrollTop: chatBox[0]._scrollHeight}, 'fast');
+    const chatBox = $('#chat-box');
+    chatBox.animate({scrollTop: chatBox[0]._scrollHeight}, 'fast');
 }
