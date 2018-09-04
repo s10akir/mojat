@@ -10,13 +10,17 @@ class ChatServer {
     start() {
         this.socket.on('connection', (socket) => {
             socket.on('join', (data) => {
-                console.log('join: ' + data);
-                socket.join(this.room);
-                socket.emit('hello', socket.id);
-                this.socket.to(this.room).emit('info', {type: 'join', user: {id: socket.id, name: data.name}});
-
                 // ユーザインスタンスの生成、ユーザ配列へ格納
-                this.users.push(new User(socket, data, socket.id));
+                const user = new User(socket, data, socket.id);
+                this.users.push(user);
+
+                socket.join(this.room);
+                console.log('join: ' + user.name);
+
+                // ユーザの固有id通知
+                socket.emit('hello', socket.id);
+
+                this.socket.to(this.room).emit('info', {type: 'join', user: {id: user.id, name: user.name}});
             });
 
             socket.on('left', () => {
@@ -35,7 +39,6 @@ class ChatServer {
                     socket.leave(this.room);
                 }
             });
-
 
             // チャットの配送
             socket.on('chat', (data) => {
