@@ -37,7 +37,7 @@ class ChatServer {
                 // なんらかの原因でjoinしたままのクライアントがゾンビしてることがあるため判定 (主にサーバ再起動時)
                 if (user) {
                     console.log('left: ' + user.name);
-                    this.socket.to(this.room).emit('info', {type: 'left', user})
+                    this.socket.to(this.room).emit('info', {type: 'left', user});
 
                     socket.leave(this.room);
                     this.users.splice(this.users.indexOf(user), 1);

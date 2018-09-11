@@ -32,6 +32,7 @@ $('#join-button').on('click', () => {
     }
 });
 
+
 // chat送信
 $('#say-button').on('click', () => {
     let textBox = $('#chat-text');
@@ -42,11 +43,13 @@ $('#say-button').on('click', () => {
     }
 });
 
+
 $(window).on('beforeunload', () => {
     if (isConnected) {
         socket.emit('left');
     }
 });
+
 
 // 自ID記憶
 socket.on('hello', (data) => {
@@ -55,6 +58,7 @@ socket.on('hello', (data) => {
     users = data.online;
     renderOnlineUsers();
 });
+
 
 // サーバからのメッセージを受信したときの処理
 socket.on('info', (data) => {
@@ -78,6 +82,7 @@ socket.on('info', (data) => {
     chatScroll();
 });
 
+
 // チャットを受信したときの処理
 socket.on('chat', (data) => {
     console.log(data);
@@ -94,12 +99,15 @@ socket.on('chat', (data) => {
     chatScroll();
 });
 
+
 // チャット領域を最下部までスクロールする
 function chatScroll() {
     const chatBox = $('#chat-box');
     chatBox.animate({scrollTop: chatBox[0]._scrollHeight}, 'fast');
 }
 
+
+// オンラインユーザ欄の描画
 function renderOnlineUsers() {
     const onlineUsers = $('#online-users');
     onlineUsers.empty();
